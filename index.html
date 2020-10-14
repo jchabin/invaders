@@ -106,16 +106,19 @@ function play(){
 		spread(map){
 			var x = this.x, y = this.y;
 			var tcol = this.col;
-			tcol *= (tcol < 1 ? 0.2 : 1);
+			
 			var dw = get(smokedata, x, y - 1).col;
-			// dw = dw < 0.5 ? 0 : dw;
+			// dw = dw < 0.2 ? 0 : dw;
 			var da = get(smokedata, x - 1, y).col;
-			// da = da < 0.5 ? 0 : da;
+			// da = da < 0.2 ? 0 : da;
 			var ds = get(smokedata, x, y + 1).col;
-			// ds = ds < 0.5 ? 0 : ds;
+			// ds = ds < 0.2 ? 0 : ds;
 			var dd = get(smokedata, x + 1, y).col;
-			// dd = dd < 0.5 ? 0 : dd;
+			// dd = dd < 0.2 ? 0 : dd;
 			var sum = dw + da + ds + dd;
+			
+			if(tcol < 1)
+				sum *= Math.random() + 0.45;
 			
 			var m = get(map, x, y);
 			m.col = Math.max((m.col + sum) / (4 + Math.random() * 2.5), 0);
